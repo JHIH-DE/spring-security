@@ -10,3 +10,6 @@ spring:
     url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_DELAY=-1
     initialize: true
     sql-script-encoding: UTF-8
+  data:
+    rest:
+      base-path: /rest/v1/
