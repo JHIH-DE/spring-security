@@ -1,8 +1,8 @@
 package com.advantech.springsecurity.controller;
 
+import com.advantech.springsecurity.service.BookService;
 import com.advantech.springsecurity.dto.BookDTO;
-import com.advantech.springsecurity.jpa.entity.Book;
-import com.advantech.springsecurity.jpa.repository.BookRepository;
+import com.advantech.springsecurity.jpa.entity.BookEntity;
 import com.advantech.springsecurity.mapper.BookMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,11 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @Api(tags = "Book")
-@RequestMapping("/rest/v1/")
+@RequestMapping("/rest/v1")
 public class BookController {
 
   @Autowired
-  private BookRepository bookRepository;
+  private BookService bookService;
   @Autowired
   private BookMapper bookMapper;
 
@@ -37,8 +37,8 @@ public class BookController {
   @ApiOperation(value = "取得書本", notes = "列出所有書本")
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(value = "/books", produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<BookDTO> getAll() {
-    return bookMapper.toDTO(bookRepository.findAll());
+  public List<BookDTO> getAllBooks() {
+    return bookMapper.toDTO(bookService.getAllBooks());
   }
 
   @ApiOperation(value = "新增書本", notes = "新增書本的內容")
@@ -47,9 +47,9 @@ public class BookController {
   @PostMapping(value = "/book", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public BookDTO create(
       @ApiParam(required = true, value = "書本內容") @RequestBody BookDTO bookDto) {
-    Book book = bookMapper.toEntity(bookDto);
-    book = bookRepository.save(book);
-    bookDto.setId(book.getBookid());
+    BookEntity bookEntity = bookMapper.toEntity(bookDto);
+    bookEntity = bookService.addBook(bookEntity);
+    bookDto.setId(bookEntity.getBookid());
     return bookDto;
   }
 
@@ -58,8 +58,9 @@ public class BookController {
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(value = "/book/{bookid}", produces = MediaType.APPLICATION_JSON_VALUE)
   public BookDTO get(
-      @ApiParam(required = true, name = "bookid", value = "書本ID") @PathVariable Integer bookid) {
-    Book book = bookRepository.getOne(bookid);
-    return bookMapper.toDTO(book);
+      @ApiParam(required = true, name = "bookid", value = "書本ID") @PathVariable Integer bookid)
+      throws Exception {
+    BookEntity bookEntity = bookService.getBookById(bookid);
+    return bookMapper.toDTO(bookEntity);
   }
 }

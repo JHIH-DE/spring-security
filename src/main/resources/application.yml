@@ -7,9 +7,15 @@ spring:
     name: api
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
     initialize: true
     sql-script-encoding: UTF-8
   data:
     rest:
       base-path: /rest/v1/
+  jpa:
+    hibernate:
+      ddl-auto: none #create-drop
+    database-platform: H2
+    show-sql: true
+    generate-ddl: true

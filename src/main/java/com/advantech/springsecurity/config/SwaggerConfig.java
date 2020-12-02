@@ -1,4 +1,4 @@
-package com.advantech.springsecurity.common;
+package com.advantech.springsecurity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

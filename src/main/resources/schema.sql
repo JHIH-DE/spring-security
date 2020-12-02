@@ -4,4 +4,4 @@ CREATE TABLE `book` (
   `name` varchar(255) DEFAULT NULL,
   `author` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`bookid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+);
