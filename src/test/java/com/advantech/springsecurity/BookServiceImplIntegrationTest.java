@@ -2,6 +2,7 @@ package com.advantech.springsecurity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.advantech.springsecurity.exception.NoSuchResourceException;
 import com.advantech.springsecurity.service.BookService;
 import com.advantech.springsecurity.service.BookServiceImpl;
 import com.advantech.springsecurity.jpa.entity.Book;
@@ -51,14 +52,12 @@ public class BookServiceImplIntegrationTest {
   }
 
   @Test
-  public void validName_thenBookShouldBeFound() {
-    try {
-      Book found = bookService.getBookByName(book.getName());
+  public void validName_thenBookShouldBeFound() throws NoSuchResourceException {
 
-      assertThat(found.getName())
-          .isEqualTo(book.getName());
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    Book found = bookService.getBookByName(book.getName());
+
+    assertThat(found.getName())
+        .isEqualTo(book.getName());
+
   }
 }

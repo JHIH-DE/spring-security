@@ -9,8 +9,8 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
-/*
-處理做單元測試時，中文亂碼問題。
+/**
+ * 處理做單元測試時，中文亂碼問題。
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

@@ -1,5 +1,6 @@
 package com.advantech.springsecurity.controller;
 
+import com.advantech.springsecurity.exception.NoSuchResourceException;
 import com.advantech.springsecurity.service.BookService;
 import com.advantech.springsecurity.dto.BookDTO;
 import com.advantech.springsecurity.jpa.entity.Book;
@@ -59,7 +60,7 @@ public class BookController {
   @GetMapping(value = "/book/{bookid}", produces = MediaType.APPLICATION_JSON_VALUE)
   public BookDTO get(
       @ApiParam(required = true, name = "bookid", value = "書本ID") @PathVariable Integer bookid)
-      throws Exception {
+      throws NoSuchResourceException {
     Book book = bookService.getBookById(bookid);
     return bookMapper.toDTO(book);
   }

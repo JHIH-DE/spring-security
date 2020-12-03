@@ -13,8 +13,10 @@ import javax.persistence.Id;
 @Entity
 @Table(name = "book")
 public class Book {
-  // IDENTITY：主鍵由數據庫自動生成（主要是自動增長型）
-  // AUTO：主鍵由程序控制。
+  /**
+   * IDENTITY：主鍵由數據庫自動生成（主要是自動增長型）
+   * AUTO：主鍵由程序控制。
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "bookid", unique = true, nullable = false)
