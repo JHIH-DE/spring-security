@@ -24,13 +24,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.6.RELEASE'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation group: 'junit', name: 'junit', version: '4.12'
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.4.1'
 
 	//H2
-	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.h2database:h2:1.4.196'
 	
 	//Lombok
 	compileOnly 'org.projectlombok:lombok'

@@ -2,7 +2,7 @@ package com.advantech.springsecurity.controller;
 
 import com.advantech.springsecurity.service.BookService;
 import com.advantech.springsecurity.dto.BookDTO;
-import com.advantech.springsecurity.jpa.entity.BookEntity;
+import com.advantech.springsecurity.jpa.entity.Book;
 import com.advantech.springsecurity.mapper.BookMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,9 +47,9 @@ public class BookController {
   @PostMapping(value = "/book", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public BookDTO create(
       @ApiParam(required = true, value = "書本內容") @RequestBody BookDTO bookDto) {
-    BookEntity bookEntity = bookMapper.toEntity(bookDto);
-    bookEntity = bookService.addBook(bookEntity);
-    bookDto.setId(bookEntity.getBookid());
+    Book book = bookMapper.toEntity(bookDto);
+    book = bookService.addBook(book);
+    bookDto.setId(book.getBookid());
     return bookDto;
   }
 
@@ -60,7 +60,7 @@ public class BookController {
   public BookDTO get(
       @ApiParam(required = true, name = "bookid", value = "書本ID") @PathVariable Integer bookid)
       throws Exception {
-    BookEntity bookEntity = bookService.getBookById(bookid);
-    return bookMapper.toDTO(bookEntity);
+    Book book = bookService.getBookById(bookid);
+    return bookMapper.toDTO(book);
   }
 }

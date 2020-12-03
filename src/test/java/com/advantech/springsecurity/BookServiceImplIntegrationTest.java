@@ -4,22 +4,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.advantech.springsecurity.service.BookService;
 import com.advantech.springsecurity.service.BookServiceImpl;
-import com.advantech.springsecurity.jpa.entity.BookEntity;
+import com.advantech.springsecurity.jpa.entity.Book;
 import com.advantech.springsecurity.jpa.repository.BookRepository;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
-public class BookEntityServiceImplIntegrationTest {
+public class BookServiceImplIntegrationTest {
 
   @TestConfiguration
   static class EmployeeServiceImplTestContextConfiguration {
@@ -36,24 +36,29 @@ public class BookEntityServiceImplIntegrationTest {
   @MockBean
   private BookRepository bookRepository;
 
+  private Book book;
+
   @Before
   public void setUp() {
-    BookEntity bookEntity = new BookEntity();
-    bookEntity.setName("被討厭的勇氣：自我啟發之父「阿德勒」的教導");
-    bookEntity.setAuthor("岸見一郎");
+    book = new Book();
+    book.setName("無瑕的程式碼－敏捷軟體開發技巧守則");
+    book.setAuthor("Robert C. Martin");
 
-    List<BookEntity> bookEntities = Arrays.asList(bookEntity);
+    Optional<Book> bookOptional = Optional.of(book);
 
-    Mockito.when(bookRepository.findByName(bookEntity.getName()))
-        .thenReturn(bookEntities);
+    Mockito.when(bookRepository.findByName(book.getName()))
+        .thenReturn(bookOptional);
   }
 
   @Test
   public void validName_thenBookShouldBeFound() {
-    String name = "被討厭的勇氣：自我啟發之父「阿德勒」的教導";
-    List<BookEntity> found = bookService.getBookByName(name);
+    try {
+      Book found = bookService.getBookByName(book.getName());
 
-    assertThat(found.get(0).getName())
-        .isEqualTo(name);
+      assertThat(found.getName())
+          .isEqualTo(book.getName());
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

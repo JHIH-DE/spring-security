@@ -1,14 +1,16 @@
 package com.advantech.springsecurity.service;
 
-import com.advantech.springsecurity.jpa.entity.BookEntity;
+import com.advantech.springsecurity.jpa.entity.Book;
+
 import java.util.List;
 
 public interface BookService {
-  BookEntity getBookById(Integer id) throws Exception;
 
-  List<BookEntity>  getBookByName(String name);
+  Book getBookById(Integer id) throws Exception;
 
-  List<BookEntity> getAllBooks();
+  Book getBookByName(String name) throws Exception;
 
-  BookEntity addBook(BookEntity bookEntity);
+  List<Book> getAllBooks();
+
+  Book addBook(Book book);
 }

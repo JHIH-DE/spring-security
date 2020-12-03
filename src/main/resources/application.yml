@@ -15,7 +15,7 @@ spring:
       base-path: /rest/v1/
   jpa:
     hibernate:
-      ddl-auto: none #create-drop
+      ddl-auto: create-drop
     database-platform: H2
     show-sql: true
     generate-ddl: true

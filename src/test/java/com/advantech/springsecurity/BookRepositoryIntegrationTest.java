@@ -3,23 +3,23 @@ package com.advantech.springsecurity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.advantech.springsecurity.config.DaoConfig;
-import com.advantech.springsecurity.jpa.entity.BookEntity;
+import com.advantech.springsecurity.jpa.entity.Book;
 import com.advantech.springsecurity.jpa.repository.BookRepository;
-import java.util.List;
-import java.util.Optional;
-import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ContextConfiguration(classes = DaoConfig.class)
-public class BookEntityRepositoryIntegrationTest {
+public class BookRepositoryIntegrationTest {
 
   @Autowired
   private BookRepository bookRepository;
@@ -27,29 +27,25 @@ public class BookEntityRepositoryIntegrationTest {
   @Autowired
   private TestEntityManager entityManager;
 
-  private BookEntity book;
+  private Book book;
 
   @Before
-  public void init(){
-    // given
-    book = new BookEntity();
-    book.setBookid(13);
-    book.setName("被討厭的勇氣：自我啟發之父「阿德勒」的教導");
-    book.setAuthor("岸見一郎");
+  public void setUp() {
+    book = new Book();
+    book.setName("無瑕的程式碼－敏捷軟體開發技巧守則");
+    book.setAuthor("Robert C. Martin");
     bookRepository.save(book);
   }
 
   @Test
   public void findByName_thenReturnBook() {
-      Optional<BookEntity> found = bookRepository.findById(1);
-      // then
-      assertThat(found.get().getName())
-          .isEqualTo(book.getName());
+    Optional<Book> found = bookRepository.findById(book.getBookid());
+    assertThat(found.get().getName())
+        .isEqualTo(book.getName());
 
-      System.out.println("ID: " + found.get().getBookid());
-      System.out.println("Name: " + found.get().getName());
-
-      //List<BookEntity> test = bookRepository.findByName("岸見一郎");
+    Optional<Book> found2 = bookRepository.findByName(book.getName());
+    assertThat(found2.get().getName())
+        .isEqualTo(book.getName());
 
   }
 }

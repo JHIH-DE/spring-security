@@ -1,7 +1,7 @@
 package com.advantech.springsecurity.mapper;
 
 import com.advantech.springsecurity.dto.BookDTO;
-import com.advantech.springsecurity.jpa.entity.BookEntity;
+import com.advantech.springsecurity.jpa.entity.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -17,9 +17,9 @@ public interface BookMapper {
       @Mapping(source = "name", target = "name"),
       @Mapping(source = "author", target = "author")
   })
-  BookDTO toDTO(BookEntity entity);
+  BookDTO toDTO(Book entity);
 
-  List<BookDTO> toDTO(List<BookEntity> entities);
+  List<BookDTO> toDTO(List<Book> entities);
 
-  BookEntity toEntity(BookDTO dto);
+  Book toEntity(BookDTO dto);
 }
