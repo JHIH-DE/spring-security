@@ -10,12 +10,18 @@ spring:
     url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
     initialize: true
     sql-script-encoding: UTF-8
+    initialization-mode: ALWAYS
+    schema:
+      - classpath:/sql/schema.sql
+    data:
+      - classpath:/sql/data.sql
   data:
     rest:
       base-path: /rest/v1/
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    database: H2
     hibernate:
-      ddl-auto: create-drop
-    database-platform: H2
+      ddl-auto: none #update #create-drop
     show-sql: true
     generate-ddl: true
