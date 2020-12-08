@@ -18,11 +18,17 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('springBootAdminVersion', "2.3.1")
+}
+
 dependencies {
 	// Spring boot framework
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'de.codecentric:spring-boot-admin-starter-client'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
@@ -45,6 +51,16 @@ dependencies {
 	implementation 'io.springfox:springfox-swagger-ui:2.8.0'
 }
 
+dependencyManagement {
+	imports {
+		mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+	}
+}
+
 test {
 	useJUnitPlatform()
+}
+
+clean {
+	delete 'out'     // interpreted relative to the project directory
 }

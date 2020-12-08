@@ -25,3 +25,11 @@ spring:
       ddl-auto: none #update #create-drop
     show-sql: true
     generate-ddl: true
+
+  boot:
+    admin:
+      client:
+        url:
+          - http://localhost:9011
+
+management.security.enabled: false
