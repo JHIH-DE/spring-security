@@ -25,9 +25,10 @@ ext {
 dependencies {
 	// Spring boot framework
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	compile group: 'org.springframework.boot',name:'spring-boot-starter-actuator',version:'2.2.5.RELEASE'
 	implementation 'de.codecentric:spring-boot-admin-starter-client'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -33,3 +33,19 @@ spring:
           - http://localhost:9011
 
 management.security.enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    export:
+      atlas:
+        enabled: true
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: ALWAYS
+
